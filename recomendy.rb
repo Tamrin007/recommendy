@@ -12,7 +12,7 @@ get '/' do
 end
 
 post '/' do
-    request_endpoint = "https://graph.facebook.com/v2.6/me/messages?access_token=#{ENV["FACEBOOK_ACCESS_TOKEN"]}"
+    request_endpoint = 'https://graph.facebook.com/v2.6/me/messages?access_token=#{ENV["FACEBOOK_ACCESS_TOKEN"]}'
 
     request_body = JSON.parse(request.body.read)
     events = request_body["entry"][0]["messaging"]
