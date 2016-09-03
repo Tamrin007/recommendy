@@ -25,20 +25,20 @@ post '/' do
         @result = HTTParty.post(URL, :body => {:recipient => {:id => sender}, :message => {:text => text}}.to_json,:headers => {'Content-Type' => 'application/json'})
     end
 
-    # location = message["attachments"].first["payload"]["coordinates"] if message["attachments"].first["type"] == "location"
-    # responce = "lat: %s, lan: %s" % [location["lat"], location{"lan"}]
-    #
-    # unless message.nil?
-    #     @result = HTTParty.post(URL, :body => {
-    #         :recipient => {
-    #             :id => sender
-    #         }, :message => {
-    #             :text => responce
-    #         }
-    #     }.to_json,:headers => {
-    #         'Content-Type' => 'application/json'
-    #     })
-    # end
+    location = message["attachments"].first["payload"]["coordinates"] if message["attachments"].first["type"] == "location"
+    responce = "lat: %s, lan: %s" % [location["lat"], location{"lan"}]
+
+    unless message.nil?
+        @result = HTTParty.post(URL, :body => {
+            :recipient => {
+                :id => sender
+            }, :message => {
+                :text => responce
+            }
+        }.to_json,:headers => {
+            'Content-Type' => 'application/json'
+        })
+    end
 end
 
 get "/mysql_test" do
