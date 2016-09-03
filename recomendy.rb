@@ -1,6 +1,7 @@
 require 'sinatra'
 require 'uri'
 require 'mysql2'
+require 'json'
 
 get '/' do
     if params["hub.verify_token"] != ENV["FACEBOOK_ACCESS_TOKEN"]
