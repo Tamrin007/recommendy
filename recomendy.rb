@@ -3,7 +3,7 @@ require 'uri'
 require 'mysql2'
 require 'httparty'
 
-access_token = ENV["FACEBOOK_ACCESS_TOKEN"]
+access_token = ENV["PAGE_ACCESS_TOKEN"]
 URL = "https://graph.facebook.com/v2.6/me/messages?access_token=#{access_token}"
 
 get '/' do
@@ -22,15 +22,7 @@ post '/' do
     puts text = message["text"] unless message["text"].nil?
 
     unless message.nil?
-        @result = HTTParty.post(URL, :body => {
-            :recipient => {
-                :id => sender
-            }, :message => {
-                :text => text
-            }
-        }.to_json,:headers => {
-            'Content-Type' => 'application/json'
-        })
+        @result = HTTParty.post(URL, :body => {:recipient => {:id => sender}, :message => {:text => text}}.to_json,:headers => {'Content-Type' => 'application/json'})
     end
 
     # location = message["attachments"].first["payload"]["coordinates"] if message["attachments"].first["type"] == "location"
