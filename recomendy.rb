@@ -1,8 +1,9 @@
 require 'sinatra'
 require 'uri'
 require 'mysql2'
-require 'json'
-require 'rest_client'
+require 'httparty'
+
+URL = "https://graph.facebook.com/v2.6/me/messages?access_token=#{ENV["FACEBOOK_ACCESS_TOKEN"]}"
 
 get '/' do
     if params["hub.verify_token"] != ENV["FACEBOOK_ACCESS_TOKEN"]
@@ -12,16 +13,26 @@ get '/' do
 end
 
 post '/' do
-    request_endpoint = 'https://graph.facebook.com/v2.6/me/messages?access_token=#{ENV["FACEBOOK_ACCESS_TOKEN"]}'
+    body = request.body.read
+    payload = JSON.parse(body)
 
-    request_body = JSON.parse(request.body.read)
-    events = request_body["entry"][0]["messaging"]
-    events.each do |event|
-        sender = event["sender"]["id"]
-        body = { recipient: { id: sender }, message: { text: 'hoge' } }
-        RestClient.post request_endpoint, body.to_json, content_type: :json, accept: :json
+    sender = payload["entry"].first["messaging"].first["sender"]["id"]
+    message = payload["entry"].first["messaging"].first["message"]
+    text = message["text"] unless message["text"].nil?
+    location = message["attachments"].first["payload"]["coordinates"] if message["attachments"].first["type"] == "location"
+    responce = "lat: %s, lan: %s" % [location["lat"], location{"lan"}]
+
+    unless message.nil?
+        @result = HTTParty.post(URL, :body => {
+            :recipient => {
+                :id => sender
+            }, :message => {
+                :text => responce
+            }
+        }.to_json,:headers => {
+            'Content-Type' => 'application/json'
+        })
     end
-    'OK'
 end
 
 get "/mysql_test" do

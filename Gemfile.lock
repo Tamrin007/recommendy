@@ -1,20 +1,25 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    addressable (2.4.0)
+    api-ai-ruby (1.1.4)
+      http (~> 0.9.4)
     domain_name (0.5.20160826)
       unf (>= 0.0.5, < 1.0.0)
+    http (0.9.9)
+      addressable (~> 2.3)
+      http-cookie (~> 1.0)
+      http-form_data (~> 1.0.1)
+      http_parser.rb (~> 0.6.0)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
-    mime-types (3.1)
-      mime-types-data (~> 3.2015)
-    mime-types-data (3.2016.0521)
+    http-form_data (1.0.1)
+    http_parser.rb (0.6.0)
+    httparty (0.14.0)
+      multi_xml (>= 0.5.2)
+    multi_xml (0.5.5)
     mysql2 (0.4.4)
-    netrc (0.11.0)
     rack (1.6.4)
-    rest-client (2.0.0)
-      http-cookie (>= 1.0.2, < 2.0)
-      mime-types (>= 1.16, < 4.0)
-      netrc (~> 0.8)
     sinatra (1.1.0)
       rack (~> 1.1)
       tilt (~> 1.1)
@@ -27,8 +32,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  api-ai-ruby
+  httparty
   mysql2
-  rest-client
   sinatra (= 1.1.0)
 
 RUBY VERSION
