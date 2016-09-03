@@ -13,20 +13,20 @@ get '/' do
   password =uri.password
   db = uri.path.gsub!(/\//, '')
 
-  client = Mysql2::Client.new(:host => host, :username => user, :password => password, :database => db)
-  if !client
-      "Connection failer"
-  end
-
-  rows = []
-
-  query = %q{select * from hackathon_report where restaurant_id = 100000703415}
-  results = client.query(query)
-  results.each do |row|
-      rows.push("<p>--------------------</p>")
-      row.each do |key, value|
-           rows.push("<p>#{key} => #{value}\n</p>")
-      end
-  end
-  rows
+  # client = Mysql2::Client.new(:host => host, :username => user, :password => password, :database => db)
+  # if !client
+  #     "Connection failer"
+  # end
+  #
+  # rows = []
+  #
+  # query = %q{select * from hackathon_report where restaurant_id = 100000703415}
+  # results = client.query(query)
+  # results.each do |row|
+  #     rows.push("<p>--------------------</p>")
+  #     row.each do |key, value|
+  #          rows.push("<p>#{key} => #{value}\n</p>")
+  #     end
+  # end
+  # rows
 end
