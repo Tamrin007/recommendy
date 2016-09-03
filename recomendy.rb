@@ -25,9 +25,6 @@ end
 get "/mysql_test" do
     uri = URI.parse(ENV["DATABASE_URL"])
 
-    p "database url: "
-    p uri
-
     host = uri.host
     user = uri.user
     password =uri.password
