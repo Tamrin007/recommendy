@@ -1,10 +1,7 @@
 require 'sinatra'
 require 'uri'
 require 'mysql2'
-require 'httparty'
-
-access_token = ENV["PAGE_ACCESS_TOKEN"]
-URL = "https://graph.facebook.com/v2.6/me/messages?access_token=#{access_token}"
+require './bot.rb'
 
 get '/' do
     if params["hub.verify_token"] != ENV["FACEBOOK_ACCESS_TOKEN"]
@@ -14,32 +11,38 @@ get '/' do
 end
 
 post '/' do
-    body = request.body.read
-    payload = JSON.parse(body)
+    data = JSON.parse(request.body.read)
 
-    sender = payload["entry"].first["messaging"].first["sender"]["id"]
-    puts message = payload["entry"].first["messaging"].first["message"]
-    puts text = message["text"] unless message["text"].nil?
+    if data["object"] == "page"
+        data["enrty"].each do |page_entry|
+            page_id = pageEntry["id"];
+            time_of_event = page_entry["time"];
 
-    unless message.nil?
-        @result = HTTParty.post(URL, :body => {:recipient => {:id => sender}, :message => {:text => text}}.to_json,:headers => {'Content-Type' => 'application/json'})
+            page_entry["messaging"].each do |messaging_event|
+                if messaging_event["message"]
+                    recieved_message(messaging_event)
+                else
+                    puts "Webhook received unknown messaging_event: #{messaging_event}"
+                end
+            end
+        end
     end
 
-    puts location = message["attachments"].first["payload"]["coordinates"] if message["attachments"].first["type"] == "location"
-    # response = "lat: %s, lan: %s" % [location["lat"], location["lan"]]
-    response = "位置情報"
-
-    unless message.nil?
-        @result = HTTParty.post(URL, :body => {
-            :recipient => {
-                :id => sender
-            }, :message => {
-                :text => response
-            }
-        }.to_json,:headers => {
-            'Content-Type' => 'application/json'
-        })
-    end
+    # puts location = message["attachments"].first["payload"]["coordinates"] if message["attachments"].first["type"] == "location"
+    # # response = "lat: %s, long: %s" % [location["lat"], location["long"]]
+    # response = "位置情報"
+    #
+    # unless message.nil?
+    #     @result = HTTParty.post(URL, :body => {
+    #         :recipient => {
+    #             :id => sender
+    #         }, :message => {
+    #             :text => response
+    #         }
+    #     }.to_json,:headers => {
+    #         'Content-Type' => 'application/json'
+    #     })
+    # end
 end
 
 get "/mysql_test" do
