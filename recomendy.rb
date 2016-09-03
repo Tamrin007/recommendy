@@ -13,12 +13,12 @@ get '/' do
 end
 
 post '/' do
-    body = request.body.read
-    payload = JSON.parse(body)
+    puts body = request.body.read
+    puts payload = JSON.parse(body)
 
-    sender = payload["entry"].first["messaging"].first["sender"]["id"]
-    message = payload["entry"].first["messaging"].first["message"]
-    text = message["text"] unless message["text"].nil?
+    puts sender = payload["entry"].first["messaging"].first["sender"]["id"]
+    puts message = payload["entry"].first["messaging"].first["message"]
+    puts text = message["text"] unless message["text"].nil?
 
     unless message.nil?
         @result = HTTParty.post(URL, :body => {
