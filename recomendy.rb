@@ -14,10 +14,10 @@ get '/' do
 end
 
 post '/' do
-    puts body = request.body.read
-    puts payload = JSON.parse(body)
+    body = request.body.read
+    payload = JSON.parse(body)
 
-    puts sender = payload["entry"].first["messaging"].first["sender"]["id"]
+    sender = payload["entry"].first["messaging"].first["sender"]["id"]
     puts message = payload["entry"].first["messaging"].first["message"]
     puts text = message["text"] unless message["text"].nil?
 
@@ -25,8 +25,9 @@ post '/' do
         @result = HTTParty.post(URL, :body => {:recipient => {:id => sender}, :message => {:text => text}}.to_json,:headers => {'Content-Type' => 'application/json'})
     end
 
-    location = message["attachments"].first["payload"]["coordinates"] if message["attachments"].first["type"] == "location"
-    response = "lat: %s, lan: %s" % [location["lat"], location["lan"]]
+    puts location = message["attachments"].first["payload"]["coordinates"] if message["attachments"].first["type"] == "location"
+    # response = "lat: %s, lan: %s" % [location["lat"], location["lan"]]
+    response = "位置情報"
 
     unless message.nil?
         @result = HTTParty.post(URL, :body => {
