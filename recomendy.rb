@@ -5,12 +5,15 @@ require 'mysql2'
 get '/' do
   uri = URI.parse(ENV["DATABASE_URL"])
 
+  p "database url: "
+  p uri
+
   host = uri.host
   user = uri.user
   password =uri.password
   db = uri.path.gsub!(/\//, '')
 
-  client = Mysql2::Client.new(:host => host, :user => user, :password => password, :dbname => db)
+  client = Mysql2::Client.new(:host => host, :username => user, :password => password, :database => db)
   if !client
       "Connection failer"
   end
