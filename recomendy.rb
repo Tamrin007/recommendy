@@ -3,7 +3,8 @@ require 'uri'
 require 'mysql2'
 require 'httparty'
 
-URL = "https://graph.facebook.com/v2.6/me/messages?access_token=#{ENV["FACEBOOK_ACCESS_TOKEN"]}"
+access_token = ENV["FACEBOOK_ACCESS_TOKEN"]
+URL = "https://graph.facebook.com/v2.6/me/messages?access_token=#{access_token}"
 
 get '/' do
     if params["hub.verify_token"] != ENV["FACEBOOK_ACCESS_TOKEN"]
