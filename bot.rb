@@ -171,29 +171,10 @@ def received_postback(event)
     node_a, node_b = find_two_child_nodes_or_restaurant(payload)
     p node_a
 
-    # if node_b == nil
+    if node_b == nil
     #     # restaurant_dto
     #     dto = node_a
     #     images = [{{:attachment => {:type => "image", :payload => {:url => dto.image_url}}}}]
-    # else
-    #     # genre_dto * 2
-    #     dtos = [node_a, node_b]
-    #     images = dtos.map{|dto|
-    #                 {
-    #                     :attachment => {
-    #                         :type => "image",
-    #                         :payload => {
-    #                             :url => dto.image_url
-    #                         }
-    #                     }
-    #                 }
-    #             }
-    # end
-
-    # images.each{|image|
-    #     send_image(sender_id, image)
-    # }
-
     buttons = {
         :attachment => {
             :type => "template",
@@ -212,5 +193,25 @@ def received_postback(event)
             }
         }
     }
+    else
+    #     # genre_dto * 2
+    #     dtos = [node_a, node_b]
+    #     images = dtos.map{|dto|
+    #                 {
+    #                     :attachment => {
+    #                         :type => "image",
+    #                         :payload => {
+    #                             :url => dto.image_url
+    #                         }
+    #                     }
+    #                 }
+    #             }
+        send_text_message("あなたにピッタリのお店が見つかりました！こちらにしましょう！！ #{node_a.name}")
+    end
+
+    # images.each{|image|
+    #     send_image(sender_id, image)
+    # }
+
     send_button(sender_id, buttons)
 end
