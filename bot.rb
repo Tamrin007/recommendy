@@ -42,7 +42,8 @@ def recieved_message(event)
             case type
             when 'location'
                 send_text_message(sender_id, "位置情報を確認しました！")
-                send_text_message(sender_id, "ただいまから付近のレストランをピックアップいたします！")
+                send_text_message(sender_id, "付近のレストランの中からオススメを2軒ずつ何度かピックアップいたします！")
+                send_text_message(sender_id, "数回繰り返しますと、あなたにピッタリのレストランが見つかります！")
                 insert_latlng(sender_id, payload["coordinates"], client)
             else
                 send_text_message(sender_id, "It is not location.")
