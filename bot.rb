@@ -172,7 +172,7 @@ def received_postback(event)
 
     if node_b == nil
         # restaurant_dto
-        dto = node_b
+        dto = node_a
         images = [{
             {
                 :attachment => {
