@@ -11,20 +11,16 @@ p DBAccess.new().find_image_url('日本料理')
 p find_two_child_nodes_or_restaurant('牛タン')
 =end
 
+def db_initialize()
+    uri = URI.parse(ENV["DATABASE_URL"])
+    host = uri.host
+    user = uri.user
+    password = uri.password
+    db = uri.path.gsub!(/\//, '')
+    client = Mysql2::Client.new(:host => host, :username => user, :password => password, :database => db)
+end
+
 module GenreTree
-  class DBAccess
-    def initialize(mysql)
-      uri = URI.parse(ENV["DATABASE_URL"])
-
-      host = uri.host
-      user = uri.user
-      password = uri.password
-      db = uri.path.gsub!(/\//, '')
-
-      @client = mysql
-
-    end
-
     def find_image_url(genre_name)
       statement = @client.prepare('select image_url from hackathon_report as repo inner join hackathon_image as img on repo.report_id=img.report_id where restaurant_id in (select restaurant_id from hackathon_restaurant where category_name=?) order by rand() limit 1;')
       results = statement.execute(genre_name)
@@ -67,7 +63,7 @@ module GenreTree
       @id = id
       @name = name
       @child_ids = child_ids
-      @db_access = DBAccess.new()
+      @db_access = db_initialize()
     end
 
     def to_genre_dto

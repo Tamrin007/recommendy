@@ -11,7 +11,7 @@ def recieved_message(event)
     if !client
         "Connection failer"
     end
-    initTree(client)
+    initTree()
 
     sender_id = event["sender"]["id"]
     recipient_id = event["sender"]["id"]
@@ -124,15 +124,6 @@ def insert_latlng(sender_id, location, client)
     }
     stmt = client.prepare(query)
     result = stmt.execute(sender_id, point, point)
-end
-
-def db_initialize
-    uri = URI.parse(ENV["DATABASE_URL"])
-    host = uri.host
-    user = uri.user
-    password =uri.password
-    db = uri.path.gsub!(/\//, '')
-    client = Mysql2::Client.new(:host => host, :username => user, :password => password, :database => db)
 end
 
 def received_postback(event)
