@@ -3,6 +3,17 @@ require 'uri'
 require 'mysql2'
 require './bot.rb'
 
+def db_initialize()
+    uri = URI.parse(ENV["DATABASE_URL"])
+    host = uri.host
+    user = uri.user
+    password = uri.password
+    db = uri.path.gsub!(/\//, '')
+    client = Mysql2::Client.new(:host => host, :username => user, :password => password, :database => db)
+end
+
+mysql = db_initialize()
+
 get '/' do
     if params["hub.verify_token"] != ENV["FACEBOOK_ACCESS_TOKEN"]
         return "Error, wrong validation token"

@@ -11,19 +11,10 @@ p DBAccess.new().find_image_url('日本料理')
 p find_two_child_nodes_or_restaurant('牛タン')
 =end
 
-def db_initialize()
-    uri = URI.parse(ENV["DATABASE_URL"])
-    host = uri.host
-    user = uri.user
-    password = uri.password
-    db = uri.path.gsub!(/\//, '')
-    client = Mysql2::Client.new(:host => host, :username => user, :password => password, :database => db)
-end
-
 module GenreTree
   class DBAccess
     def initialize()
-      @client = db_initialize()
+      @client = mysql
     end
 
     def find_image_url(genre_name)
