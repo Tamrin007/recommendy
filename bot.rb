@@ -170,25 +170,24 @@ def received_postback(event)
 
     node_a, node_b = find_two_child_nodes_or_restaurant(payload)
 
-    if node_b == nil
-        # restaurant_dto
-        dto = node_a
-        images = [{{:attachment => {:type => "image", :payload => {:url => dto.image_url}}}}]
-
-    else
-        # genre_dto * 2
-        dtos = [node_a, node_b]
-        images = dtos.map{|dto|
-                    {
-                        :attachment => {
-                            :type => "image",
-                            :payload => {
-                                :url => dto.image_url
-                            }
-                        }
-                    }
-                }
-    end
+    # if node_b == nil
+    #     # restaurant_dto
+    #     dto = node_a
+    #     images = [{{:attachment => {:type => "image", :payload => {:url => dto.image_url}}}}]
+    # else
+    #     # genre_dto * 2
+    #     dtos = [node_a, node_b]
+    #     images = dtos.map{|dto|
+    #                 {
+    #                     :attachment => {
+    #                         :type => "image",
+    #                         :payload => {
+    #                             :url => dto.image_url
+    #                         }
+    #                     }
+    #                 }
+    #             }
+    # end
 
     images.each{|image|
         send_image(sender_id, image)
