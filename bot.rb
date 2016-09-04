@@ -12,7 +12,7 @@ def recieved_message(event)
     puts "Received message for user #{sender_id} and page #{recipient_id} at #{time_of_event} with message: "
     puts message.to_s
 
-    var messageId = message.mid;
+    var messageId = message[:mid];
     message_id = message[:mid]
 
     message_text = message[:text];
@@ -20,13 +20,13 @@ def recieved_message(event)
 
     if message_text
         case message_text
-        when 'image' then
+        when "image" then
             # image
-        when 'button' then
+        when "button" then
             # button
-        when 'generic' then
+        when "generic" then
             # generic
-        when 'receipt'
+        when "receipt"
             # receipt
         else
             send_text_message(sender_id, message_text)
@@ -44,12 +44,13 @@ def send_text_message(recipient_id, message_text)
         :message => {
             :text => message_text
         }
-    }.to_json
+    }
 
     call_send_api(message_data)
 end
 
 def call_send_api(message_data)
-    puts @result = HTTParty.post(URL, :body => message_data, :headers => {'Content-Type' => 'application/json'})
-    puts @result.class
+    puts message_data.to_json
+    # puts @result = HTTParty.post(URL, :body => message_data, :headers => {'Content-Type' => 'application/json'})
+    # puts @result.class
 end
