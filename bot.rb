@@ -75,7 +75,7 @@ def pick_lat_and_long(location)
 end
 
 def insert_latlng(sender_id, location, client)
-    point = "POINT(#{location["lat"].to_s} #{{location["long"].to_s}})"
+    point = "POINT(#{location["lat"].to_s} #{location["long"].to_s})"
     query = %{
         insert into a_team_users (id, user_latlng)
         values (?, GeomFromText(?))
