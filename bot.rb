@@ -36,14 +36,13 @@ def recieved_message(event)
             send_text_message(sender_id, message_text)
         end
     elsif message_attachments
-        send_text_message(sender_id, "Message with attachment received")
-
         message_attachments.each do |attachment|
             p type = attachment["type"]
             p payload = attachment["payload"]
             case type
             when 'location'
-                send_text_message(sender_id, pick_lat_and_long(payload["coordinates"]))
+                send_text_message(sender_id, "位置情報を確認しました！")
+                send_text_message(sender_id, "ただいまから付近のレストランをピックアップいたします！")
                 insert_latlng(sender_id, payload["coordinates"], client)
             else
                 send_text_message(sender_id, "It is not location.")
