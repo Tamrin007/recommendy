@@ -4,6 +4,8 @@ ACCESS_TOKEN = ENV["PAGE_ACCESS_TOKEN"]
 URL = "https://graph.facebook.com/v2.6/me/messages?access_token=#{ACCESS_TOKEN}"
 
 def recieved_message(event)
+    client = Mysql2::Client.new(:host => host, :username => user, :password => password, :database => db)
+
     sender_id = event["sender"]["id"]
     recipient_id = event["sender"]["id"]
     time_of_event = event["timestamp"]
@@ -38,7 +40,7 @@ def recieved_message(event)
             p payload = attachment["payload"]
             case type
             when 'location'
-                send_text_message(sender_id, pick_lat_and_long(payload["coordinates"]))
+                send_text_message(sender_id, pick_lat_and_long(payload["coordinates"]), client)
             else
                 send_text_message(sender_id, "It is not location.")
             end
@@ -64,6 +66,6 @@ def call_send_api(message_data)
     @result = HTTParty.post(URL, :body => message_data.to_json, :headers => {'Content-Type' => 'application/json'})
 end
 
-def pick_lat_and_long(location)
+def pick_lat_and_long(location, client)
     p "lat: " + location["lat"].to_s + ", long: " + location["long"].to_s
 end
