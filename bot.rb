@@ -202,12 +202,12 @@ def received_postback(event)
                 :text => "まずはこちらの2軒から好きの方をお選び下さい！",
                 :buttons => [{
                     :type => "postback",
-                    :title => node_a.node,
-                    :payload => node_a.node
+                    :title => node_a.name,
+                    :payload => node_a.name
                 }, {
                     :type => "postback",
-                    :title => node_b.node,
-                    :payload => node_b.node
+                    :title => node_b.name,
+                    :payload => node_b.name
                 }]
             }
         }
