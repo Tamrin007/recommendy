@@ -13,13 +13,14 @@ end
 post '/' do
     data = JSON.parse(request.body.read)
 
-    if data["object"] == "page"
-        data["enrty"].each do |page_entry|
-            page_id = pageEntry["id"];
-            time_of_event = page_entry["time"];
+    if data[:object] == "page"
+        data[:entry].class
+        data[:entry].each do |page_entry|
+            page_id = page_entry[:id];
+            time_of_event = page_entry[:time];
 
-            page_entry["messaging"].each do |messaging_event|
-                if messaging_event["message"]
+            page_entry[:messaging].each do |messaging_event|
+                if messaging_event[:message]
                     recieved_message(messaging_event)
                 else
                     puts "Webhook received unknown messaging_event: #{messaging_event}"
