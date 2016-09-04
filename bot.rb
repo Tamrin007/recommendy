@@ -1,5 +1,8 @@
 require 'httparty'
 
+include GenreTree
+initTree()
+
 ACCESS_TOKEN = ENV["PAGE_ACCESS_TOKEN"]
 URL = "https://graph.facebook.com/v2.6/me/messages?access_token=#{ACCESS_TOKEN}"
 
@@ -47,6 +50,8 @@ def recieved_message(event)
                 results = insert_latlng(sender_id, payload["coordinates"], client)
 
                 # 初回のボタン生成
+                first_dtos = get_first_genre_dtos
+                nodes = [find_node(first_dtos[0]), find_node(first_dtos[1])
                 buttons = {
                     :attachment => {
                         :type => "template",
@@ -55,12 +60,12 @@ def recieved_message(event)
                             :text => "まずはこちらの2軒から好きの方をお選び下さい！",
                             :buttons => [{
                                 :type => "postback",
-                                :title => "左のお店",
-                                :payload => "左のお店"
+                                :title => nodes[0].name,
+                                :payload => nodes[0].name
                             }, {
                                 :type => "postback",
-                                :title => "右のお店",
-                                :payload => "右のお店"
+                                :title => nodes[0].name,
+                                :payload => nodes[0].name
                             }]
                         }
                     }
