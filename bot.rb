@@ -78,12 +78,11 @@ def insert_latlng(sender_id, location, client)
     query = %{
         insert into a_team_users (id, user_latlng)
         values (?, GeomFromText('POINT(? ?)'))
-        on duplicate key update user_latlng=GeomFromText('POINT(? ?)')
     }
     stmt = client.prepare(query)
     lat = location["lat"]
     long = location["long"]
-    result = stmt.execute(sender_id, lat, long, lat, long)
+    result = stmt.execute(sender_id, lat, long)
 end
 
 def db_initialize
