@@ -189,9 +189,9 @@ def received_postback(event)
     #             }
     # end
 
-    images.each{|image|
-        send_image(sender_id, image)
-    }
+    # images.each{|image|
+    #     send_image(sender_id, image)
+    # }
 
     buttons = {
         :attachment => {
@@ -201,12 +201,12 @@ def received_postback(event)
                 :text => "まずはこちらの2軒から好きの方をお選び下さい！",
                 :buttons => [{
                     :type => "postback",
-                    :title => "左のお店",
-                    :payload => "左のお店"
+                    :title => node_a.name,
+                    :payload => node_a.name
                 }, {
                     :type => "postback",
-                    :title => "右のお店",
-                    :payload => "右のお店"
+                    :title => node_b.name,
+                    :payload => node_b.name
                 }]
             }
         }
