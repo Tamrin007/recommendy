@@ -11,11 +11,11 @@ get '/' do
 end
 
 post '/' do
-    puts "post received"
+    p "post received"
     data = JSON.parse(request.body.read)
 
     if data[:object] == "page"
-        puts data[:entry].class
+        p data[:entry].class
         data[:entry].each do |page_entry|
             page_id = page_entry[:id];
             time_of_event = page_entry[:time];
@@ -24,13 +24,13 @@ post '/' do
                 if messaging_event[:message]
                     recieved_message(messaging_event)
                 else
-                    puts "Webhook received unknown messaging_event: #{messaging_event}"
+                    p "Webhook received unknown messaging_event: #{messaging_event}"
                 end
             end
         end
     end
 
-    # puts location = message["attachments"].first["payload"]["coordinates"] if message["attachments"].first["type"] == "location"
+    # p location = message["attachments"].first["payload"]["coordinates"] if message["attachments"].first["type"] == "location"
     # # response = "lat: %s, long: %s" % [location["lat"], location["long"]]
     # response = "位置情報"
     #

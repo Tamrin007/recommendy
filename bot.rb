@@ -9,8 +9,8 @@ def recieved_message(event)
     time_of_event = event[:timestamp]
     message = event[:message]
 
-    puts "Received message for user #{sender_id} and page #{recipient_id} at #{time_of_event} with message: "
-    puts message.to_s
+    p "Received message for user #{sender_id} and page #{recipient_id} at #{time_of_event} with message: "
+    p message.to_s
 
     var messageId = message[:mid];
     message_id = message[:mid]
@@ -50,6 +50,6 @@ def send_text_message(recipient_id, message_text)
 end
 
 def call_send_api(message_data)
-    puts message_data.to_json
+    p message_data.to_json
     @result = HTTParty.post(URL, :body => message_data.to_json, :headers => {'Content-Type' => 'application/json'})
 end
