@@ -206,7 +206,7 @@ def received_postback(event)
     #                     }
     #                 }
     #             }
-        send_text_message("あなたにピッタリのお店が見つかりました！こちらにしましょう！！ #{node_a.name}")
+        send_text_message(sender_id, "あなたにピッタリのお店が見つかりました！こちらにしましょう！！ #{node_a.name}")
     end
 
     # images.each{|image|
