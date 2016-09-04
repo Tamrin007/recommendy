@@ -75,14 +75,14 @@ def pick_lat_and_long(location)
 end
 
 def insert_latlng(sender_id, location, client)
+    point = "POINT(#{location["lat"].to_s} #{{location["long"].to_s}})"
     query = %{
         insert into a_team_users (id, user_latlng)
-        values (?, GeomFromText('POINT(? ?)'))
+        values (?, GeomFromText(?))
+        on duplicate key update user_latlng=GeomFromText(?)
     }
     stmt = client.prepare(query)
-    lat = location["lat"]
-    long = location["long"]
-    result = stmt.execute(sender_id, lat, long)
+    result = stmt.execute(sender_id, point, point)
 end
 
 def db_initialize
