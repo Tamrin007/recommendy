@@ -23,28 +23,14 @@ post '/' do
             page_entry["messaging"].each do |messaging_event|
                 if messaging_event["message"]
                     recieved_message(messaging_event)
+                elsif messaging_event["postback"]
+                    received_postback(messaging_event)
                 else
                     p "Webhook received unknown messaging_event: #{messaging_event}"
                 end
             end
         end
     end
-
-    # p location = message["attachments"].first["payload"]["coordinates"] if message["attachments"].first["type"] == "location"
-    # # response = "lat: %s, long: %s" % [location["lat"], location["long"]]
-    # response = "位置情報"
-    #
-    # unless message.nil?
-    #     @result = HTTParty.post(URL, :body => {
-    #         :recipient => {
-    #             :id => sender
-    #         }, :message => {
-    #             :text => response
-    #         }
-    #     }.to_json,:headers => {
-    #         'Content-Type' => 'application/json'
-    #     })
-    # end
 
     'ok'
 end
