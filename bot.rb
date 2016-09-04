@@ -173,16 +173,7 @@ def received_postback(event)
     if node_b == nil
         # restaurant_dto
         dto = node_a
-        images = [{
-            {
-                :attachment => {
-                    :type => "image",
-                    :payload => {
-                        :url => dto.image_url
-                    }
-                }
-            }
-        }]
+        images = [{{:attachment => {:type => "image", :payload => {:url => dto.image_url}}}}]
 
     else
         # genre_dto * 2
