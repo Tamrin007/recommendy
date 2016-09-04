@@ -51,6 +51,5 @@ end
 
 def call_send_api(message_data)
     puts message_data.to_json
-    # puts @result = HTTParty.post(URL, :body => message_data, :headers => {'Content-Type' => 'application/json'})
-    # puts @result.class
+    @result = HTTParty.post(URL, :body => message_data.to_json, :headers => {'Content-Type' => 'application/json'})
 end
