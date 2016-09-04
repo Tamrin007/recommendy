@@ -84,7 +84,7 @@ module GenreTree
   end
 
   class GenreDTO
-    attr_reader :node, :image_url
+    attr_reader :name, :image_url
 
     def initialize(name, image_url)
       @name = name
