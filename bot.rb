@@ -44,7 +44,7 @@ def recieved_message(event)
                 send_text_message(sender_id, "位置情報を確認しました！")
                 send_text_message(sender_id, "付近のレストランの中からオススメを2軒ずつ何度かピックアップいたします！")
                 send_text_message(sender_id, "数回繰り返しますと、あなたにピッタリのレストランが見つかります！")
-                insert_latlng(sender_id, payload["coordinates"], client)
+                results = insert_latlng(sender_id, payload["coordinates"], client)
 
                 # 初回のボタン生成
                 buttons = {
@@ -65,7 +65,7 @@ def recieved_message(event)
                         }
                     }
                 }
-                send_text_message(sender_id, buttons)
+                send_button(sender_id, buttons)
             else
                 send_text_message(sender_id, "It is not location.")
             end
@@ -81,6 +81,17 @@ def send_text_message(recipient_id, message_text)
         :message => {
             :text => message_text
         }
+    }
+
+    call_send_api(message_data)
+end
+
+def send_button(recipient_id, buttons)
+    message_data = {
+        :recipient => {
+            :id => recipient_id
+        },
+        :message => buttons
     }
 
     call_send_api(message_data)
