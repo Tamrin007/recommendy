@@ -81,8 +81,8 @@ def insert_latlng(sender_id, location, client)
         on duplicate key update user_latlng=GeomFromText('POINT(? ?)')
     }
     stmt = client.prepare(query)
-    lat = location["lat"].to_s
-    long = location["long"].to_s
+    lat = location["lat"]
+    long = location["long"]
     result = stmt.execute(sender_id, lat, long, lat, long)
 end
 
