@@ -29,23 +29,7 @@ post '/' do
             end
         end
     end
-
-    # p location = message["attachments"].first["payload"]["coordinates"] if message["attachments"].first["type"] == "location"
-    # # response = "lat: %s, long: %s" % [location["lat"], location["long"]]
-    # response = "位置情報"
-    #
-    # unless message.nil?
-    #     @result = HTTParty.post(URL, :body => {
-    #         :recipient => {
-    #             :id => sender
-    #         }, :message => {
-    #             :text => response
-    #         }
-    #     }.to_json,:headers => {
-    #         'Content-Type' => 'application/json'
-    #     })
-    # end
-
+    
     'ok'
 end
 
