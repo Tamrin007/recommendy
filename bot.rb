@@ -7,7 +7,7 @@ ACCESS_TOKEN = ENV["PAGE_ACCESS_TOKEN"]
 URL = "https://graph.facebook.com/v2.6/me/messages?access_token=#{ACCESS_TOKEN}"
 
 def recieved_message(event)
-    client = mysql
+    $client = mysql
     if !client
         "Connection failer"
     end

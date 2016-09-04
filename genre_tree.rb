@@ -25,7 +25,7 @@ $mysql = db_initialize()
 module GenreTree
   class DBAccess
     def initialize()
-      @client = mysql
+      @client = $mysql
     end
 
     def find_image_url(genre_name)
