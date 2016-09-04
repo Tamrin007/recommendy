@@ -52,8 +52,7 @@ def recieved_message(event)
                 # 初回のボタン生成
                 first_dtos = get_first_genre_dtos
                 nodes = [find_node(first_dtos[0]), find_node(first_dtos[1])
-                left = nodes[0].name
-                right = nodes[1].name
+                p nodes.class
 
                 buttons = {
                     :attachment => {
@@ -63,12 +62,12 @@ def recieved_message(event)
                             :text => "まずはこちらの2軒から好きの方をお選び下さい！",
                             :buttons => [{
                                 :type => "postback",
-                                :title => left,
-                                :payload => left
+                                :title => "left",
+                                :payload => "left"
                             }, {
                                 :type => "postback",
-                                :title => right,
-                                :payload => right
+                                :title => "right",
+                                :payload => "right"
                             }]
                         }
                     }
