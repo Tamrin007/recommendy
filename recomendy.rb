@@ -12,11 +12,12 @@ end
 
 post '/' do
     p "post received"
-    data = JSON.parse(request.body.read)
+    p data = JSON.parse(request.body.read)
 
     if data[:object] == "page"
         p data[:entry].class
         data[:entry].each do |page_entry|
+            p
             page_id = page_entry[:id];
             time_of_event = page_entry[:time];
 
