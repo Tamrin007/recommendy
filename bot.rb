@@ -43,7 +43,7 @@ def recieved_message(event)
             p payload = attachment["payload"]
             case type
             when 'location'
-                send_text_message(sender_id, pick_lat_and_long(payload["coordinates"]), client)
+                send_text_message(sender_id, pick_lat_and_long(payload["coordinates"]))
                 insert_latlng(sender_id, payload["coordinates"])
             else
                 send_text_message(sender_id, "It is not location.")
