@@ -52,7 +52,7 @@ def recieved_message(event)
                         :type => "template",
                         :payload => {
                             :template_type => "button",
-                            :text => "What do you want to do next?",
+                            :text => "まずはこちらの2軒から好きの方をお選び下さい！",
                             :buttons => [{
                                 :type => "postback",
                                 :title => "左のお店",
@@ -140,5 +140,6 @@ def received_postback(event)
 
     p "Received postback for user #{sender_id} and page #{recipient_id} with payload #{payload} at #{time_of_event}"
 
-    send_text_message(sender_id, "Postback called");
+    send_text_message(sender_id, "#{payload} ですね！");
+    send_text_message(sender_id, "次はこちらの2軒から好きの方をお選び下さい！");
 end
