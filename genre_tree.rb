@@ -21,6 +21,11 @@ def db_initialize()
 end
 
 module GenreTree
+  class DBAccess
+    def initialize()
+      @client = db_initialize()
+    end
+
     def find_image_url(genre_name)
       statement = @client.prepare('select image_url from hackathon_report as repo inner join hackathon_image as img on repo.report_id=img.report_id where restaurant_id in (select restaurant_id from hackathon_restaurant where category_name=?) order by rand() limit 1;')
       results = statement.execute(genre_name)
@@ -63,7 +68,7 @@ module GenreTree
       @id = id
       @name = name
       @child_ids = child_ids
-      @db_access = db_initialize()
+      @db_access = DBAccess.new()
     end
 
     def to_genre_dto
