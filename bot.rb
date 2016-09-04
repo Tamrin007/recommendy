@@ -52,7 +52,8 @@ def recieved_message(event)
                 # 初回のボタン生成
                 first_dtos = get_first_genre_dtos
                 nodes = [find_node(first_dtos[0]), find_node(first_dtos[1])
-                p nodes.class
+                p nodes
+                p nodes[0].name
 
                 buttons = {
                     :attachment => {
