@@ -1,4 +1,5 @@
 require 'httparty'
+require './genre_tree.rb'
 
 include GenreTree
 
