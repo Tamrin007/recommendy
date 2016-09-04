@@ -56,6 +56,22 @@ def recieved_message(event)
                 p nodes
                 p nodes[0].name
 
+                images = nodes.map{|node| node.to_genre_dto}.map{|dto|
+                    {
+                            :attachment => {
+                            :type => "image",
+                            :payload => {
+                                :url => dto.image_url
+                            }
+                        }
+                    }
+                }
+                
+                images.each{|image|
+                    send_image(sender_id, image)
+                }
+                
+
                 buttons = {
                     :attachment => {
                         :type => "template",
@@ -106,6 +122,15 @@ def send_button(recipient_id, buttons)
     call_send_api(message_data)
 end
 
+def send_image(recipient_id, image_url)
+    message_data = {
+        :recipient => {
+            :id => recipient_id
+        },
+        :message => image_url
+    }
+end
+
 def call_send_api(message_data)
     p message_data.to_json
     @result = HTTParty.post(URL, :body => message_data.to_json, :headers => {'Content-Type' => 'application/json'})
@@ -142,6 +167,42 @@ def received_postback(event)
 
     send_text_message(sender_id, "#{payload} ですね！");
     send_text_message(sender_id, "次はこちらの2軒から好きな方をお選び下さい！");
+
+    node_a, node_b = find_two_child_nodes_or_restaurant(payload)
+
+    if node_b == nil
+        # restaurant_dto
+        dto = node_b
+        images = [{
+            {
+                :attachment => {
+                    :type => "image",
+                    :payload => {
+                        :url => dto.image_url
+                    }
+                }
+            }
+        }]
+        
+    else
+        # genre_dto * 2 
+        dtos = [node_a, node_b]
+        images = dtos.map{|dto|
+                    {
+                        :attachment => {
+                            :type => "image",
+                            :payload => {
+                                :url => dto.image_url
+                            }
+                        }
+                    }
+                }
+    end
+
+    images.each{|image|
+        send_image(sender_id, image)
+    }
+    
     buttons = {
         :attachment => {
             :type => "template",
