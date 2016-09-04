@@ -169,30 +169,12 @@ def received_postback(event)
     send_text_message(sender_id, "次はこちらの2軒から好きな方をお選び下さい！");
 
     node_a, node_b = find_two_child_nodes_or_restaurant(payload)
-    p node_a
 
     if node_b == nil
     #     # restaurant_dto
     #     dto = node_a
     #     images = [{{:attachment => {:type => "image", :payload => {:url => dto.image_url}}}}]
-    buttons = {
-        :attachment => {
-            :type => "template",
-            :payload => {
-                :template_type => "button",
-                :text => "まずはこちらの2軒から好きの方をお選び下さい！",
-                :buttons => [{
-                    :type => "postback",
-                    :title => node_a.name,
-                    :payload => node_a.name
-                }, {
-                    :type => "postback",
-                    :title => node_b.name,
-                    :payload => node_b.name
-                }]
-            }
-        }
-    }
+        send_text_message(sender_id, "あなたにピッタリのお店が見つかりました！こちらにしましょう！！ #{node_a.name}")
     else
     #     # genre_dto * 2
     #     dtos = [node_a, node_b]
@@ -206,7 +188,24 @@ def received_postback(event)
     #                     }
     #                 }
     #             }
-        send_text_message(sender_id, "あなたにピッタリのお店が見つかりました！こちらにしましょう！！ #{node_a.name}")
+        buttons = {
+            :attachment => {
+                :type => "template",
+                :payload => {
+                    :template_type => "button",
+                    :text => "次にこちらの2軒から好きの方をお選び下さい！",
+                    :buttons => [{
+                        :type => "postback",
+                        :title => node_a.name,
+                        :payload => node_a.name
+                    }, {
+                        :type => "postback",
+                        :title => node_b.name,
+                        :payload => node_b.name
+                    }]
+                }
+            }
+        }
     end
 
     # images.each{|image|
