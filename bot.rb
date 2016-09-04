@@ -56,20 +56,20 @@ def recieved_message(event)
                 p nodes
                 p nodes[0].name
 
-                images = nodes.map{|node| node.to_genre_dto}.map{|dto|
-                    {
-                            :attachment => {
-                            :type => "image",
-                            :payload => {
-                                :url => dto.image_url
-                            }
-                        }
-                    }
-                }
-
-                images.each{|image|
-                    send_image(sender_id, image)
-                }
+                # images = nodes.map{|node| node.to_genre_dto}.map{|dto|
+                #     {
+                #             :attachment => {
+                #             :type => "image",
+                #             :payload => {
+                #                 :url => dto.image_url
+                #             }
+                #         }
+                #     }
+                # }
+                #
+                # images.each{|image|
+                #     send_image(sender_id, image)
+                # }
 
 
                 buttons = {
