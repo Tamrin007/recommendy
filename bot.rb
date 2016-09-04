@@ -169,6 +169,7 @@ def received_postback(event)
     send_text_message(sender_id, "次はこちらの2軒から好きな方をお選び下さい！");
 
     node_a, node_b = find_two_child_nodes_or_restaurant(payload)
+    p node_a
 
     # if node_b == nil
     #     # restaurant_dto
