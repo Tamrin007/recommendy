@@ -22,6 +22,7 @@ post '/' do
             time_of_event = page_entry["time"];
 
             page_entry["messaging"].each do |messaging_event|
+                initTree()
                 if messaging_event["message"]
                     recieved_message(messaging_event)
                 elsif messaging_event["postback"]

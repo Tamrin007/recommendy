@@ -11,7 +11,6 @@ def recieved_message(event)
     if !client
         "Connection failer"
     end
-    initTree()
 
     sender_id = event["sender"]["id"]
     recipient_id = event["sender"]["id"]
