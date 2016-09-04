@@ -66,5 +66,5 @@ def call_send_api(message_data)
 end
 
 def pick_lat_and_long(location)
-    p "lat: " + location["lat"] + ", long: " + location["long"]
+    p "lat: " + location["lat"].to_s + ", long: " + location["long"].to_s
 end
