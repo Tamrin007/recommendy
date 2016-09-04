@@ -12,7 +12,7 @@ def recieved_message(event)
     p "Received message for user #{sender_id} and page #{recipient_id} at #{time_of_event} with message: "
     p message.to_s
 
-    var messageId = message["mid"];
+    messageId = message["mid"];
     message_id = message["mid"]
 
     message_text = message["text"];
