@@ -4,19 +4,19 @@ ACCESS_TOKEN = ENV["PAGE_ACCESS_TOKEN"]
 URL = "https://graph.facebook.com/v2.6/me/messages?access_token=#{ACCESS_TOKEN}"
 
 def recieved_message(event)
-    sender_id = event[:sender][:id]
-    recipient_id = event[:sender][:id]
-    time_of_event = event[:timestamp]
-    message = event[:message]
+    sender_id = event["sender"]["id"]
+    recipient_id = event["sender"]["id"]
+    time_of_event = event["timestamp"]
+    message = event["message"]
 
     p "Received message for user #{sender_id} and page #{recipient_id} at #{time_of_event} with message: "
     p message.to_s
 
-    var messageId = message[:mid];
-    message_id = message[:mid]
+    var messageId = message["mid"];
+    message_id = message["mid"]
 
-    message_text = message[:text];
-    message_attachments = message[:attachments]
+    message_text = message["text"];
+    message_attachments = message["attachments"]
 
     if message_text
         case message_text
