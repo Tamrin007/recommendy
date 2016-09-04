@@ -166,7 +166,6 @@ def received_postback(event)
     p "Received postback for user #{sender_id} and page #{recipient_id} with payload #{payload} at #{time_of_event}"
 
     send_text_message(sender_id, "#{payload} ですね！");
-    send_text_message(sender_id, "次はこちらの2軒から好きな方をお選び下さい！");
 
     node_a, node_b = find_two_child_nodes_or_restaurant(payload)
 
@@ -174,7 +173,7 @@ def received_postback(event)
     #     # restaurant_dto
     #     dto = node_a
     #     images = [{{:attachment => {:type => "image", :payload => {:url => dto.image_url}}}}]
-        send_text_message(sender_id, "あなたにピッタリのお店が見つかりました！こちらにしましょう！！ #{node_a.name}")
+        send_text_message(sender_id, "あなたにピッタリのお店が見つかりました！こちらにしましょう！！ 「#{node_a.name}」")
     else
     #     # genre_dto * 2
     #     dtos = [node_a, node_b]
