@@ -1,2 +1,3 @@
+require './recomendy.rb'
 $stdout.sync = true
-web: bundle exec rackup recomendy.rb -p $PORT
+run Sinatra::Application

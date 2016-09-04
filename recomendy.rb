@@ -11,6 +11,7 @@ get '/' do
 end
 
 post '/' do
+    puts "post received"
     data = JSON.parse(request.body.read)
 
     if data[:object] == "page"
