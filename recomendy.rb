@@ -45,6 +45,8 @@ post '/' do
     #         'Content-Type' => 'application/json'
     #     })
     # end
+
+    'ok'
 end
 
 get "/mysql_test" do
