@@ -33,6 +33,17 @@ def recieved_message(event)
         end
     elsif message_attachments
         send_text_message(sender_id, "Message with attachment received")
+
+        message_attachments.each do |attachment|
+            p type = attachment["type"]
+            p payload = attachment["payload"]
+            case
+            when 'location'
+                send_text_message(sender_id, pick_lat_and_long(payload["coordinates"]))
+            else
+                send_text_message(sender_id, "It is not location.")
+            end
+        end
     end
 end
 
@@ -52,4 +63,8 @@ end
 def call_send_api(message_data)
     p message_data.to_json
     @result = HTTParty.post(URL, :body => message_data.to_json, :headers => {'Content-Type' => 'application/json'})
+end
+
+def pick_lat_and_long(location)
+    p "lat: %s, long: %s" % [location["lat"], location["long"]]
 end
