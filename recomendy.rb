@@ -14,7 +14,7 @@ post '/' do
     data = JSON.parse(request.body.read)
 
     if data[:object] == "page"
-        data[:entry].class
+        puts data[:entry].class
         data[:entry].each do |page_entry|
             page_id = page_entry[:id];
             time_of_event = page_entry[:time];
