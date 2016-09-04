@@ -20,7 +20,7 @@ def db_initialize()
     client = Mysql2::Client.new(:host => host, :username => user, :password => password, :database => db)
 end
 
-mysql = db_initialize()
+$mysql = db_initialize()
 
 module GenreTree
   class DBAccess
