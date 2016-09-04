@@ -52,7 +52,7 @@ def recieved_message(event)
 
                 # 初回のボタン生成
                 first_dtos = get_first_genre_dtos
-                nodes = [find_node(first_dtos[0]), find_node(first_dtos[1])]
+                nodes = [find_node(first_dtos[0])[0], find_node(first_dtos[1])[0]]
                 p nodes
                 p nodes[0].name
 
@@ -66,11 +66,11 @@ def recieved_message(event)
                         }
                     }
                 }
-                
+
                 images.each{|image|
                     send_image(sender_id, image)
                 }
-                
+
 
                 buttons = {
                     :attachment => {
@@ -183,9 +183,9 @@ def received_postback(event)
                 }
             }
         }]
-        
+
     else
-        # genre_dto * 2 
+        # genre_dto * 2
         dtos = [node_a, node_b]
         images = dtos.map{|dto|
                     {
@@ -202,7 +202,7 @@ def received_postback(event)
     images.each{|image|
         send_image(sender_id, image)
     }
-    
+
     buttons = {
         :attachment => {
             :type => "template",
