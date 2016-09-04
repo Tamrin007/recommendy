@@ -37,7 +37,7 @@ def recieved_message(event)
         message_attachments.each do |attachment|
             p type = attachment["type"]
             p payload = attachment["payload"]
-            case
+            case type
             when 'location'
                 send_text_message(sender_id, pick_lat_and_long(payload["coordinates"]))
             else
