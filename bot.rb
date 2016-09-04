@@ -45,6 +45,27 @@ def recieved_message(event)
                 send_text_message(sender_id, "付近のレストランの中からオススメを2軒ずつ何度かピックアップいたします！")
                 send_text_message(sender_id, "数回繰り返しますと、あなたにピッタリのレストランが見つかります！")
                 insert_latlng(sender_id, payload["coordinates"], client)
+
+                # 初回のボタン生成
+                buttons = {
+                    :attachment => {
+                        :type => "template",
+                        :payload => {
+                            :template_type => "button",
+                            :text => "What do you want to do next?",
+                            :buttons => [{
+                                :type => "postback",
+                                :title => "左のお店",
+                                :payload => "左のお店"
+                            }, {
+                                :type => "postback",
+                                :title => "右のお店",
+                                :payload => "右のお店"
+                            }]
+                        }
+                    }
+                }
+                send_text_message(sender_id, buttons)
             else
                 send_text_message(sender_id, "It is not location.")
             end
@@ -92,4 +113,21 @@ def db_initialize
     password =uri.password
     db = uri.path.gsub!(/\//, '')
     client = Mysql2::Client.new(:host => host, :username => user, :password => password, :database => db)
+end
+
+def received_postback(event)
+    client = db_initialize()
+    if !client
+        "Connection failer"
+    end
+
+    sender_id = event["sender"]["id"]
+    recipient_id = event["sender"]["id"]
+    time_of_event = event["timestamp"]
+    message = event["message"]
+    payload = event["postback"]["payload"]
+
+    p "Received postback for user #{sender_id} and page #{recipient_id} with payload #{payload} at #{time_of_event}"
+
+    send_text_message(sender_id, "Postback called");
 end

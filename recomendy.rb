@@ -23,6 +23,8 @@ post '/' do
             page_entry["messaging"].each do |messaging_event|
                 if messaging_event["message"]
                     recieved_message(messaging_event)
+                elsif messaging_event["postback"]
+                    received_postback(messaging_event)
                 else
                     p "Webhook received unknown messaging_event: #{messaging_event}"
                 end
