@@ -13,7 +13,7 @@ p find_two_child_nodes_or_restaurant('牛タン')
 
 module GenreTree
   class DBAccess
-    def initialize()
+    def initialize(mysql)
       uri = URI.parse(ENV["DATABASE_URL"])
 
       host = uri.host
@@ -21,10 +21,7 @@ module GenreTree
       password = uri.password
       db = uri.path.gsub!(/\//, '')
 
-      @client = Mysql2::Client.new(:host => host, :username => user, :password => password, :database => db)
-      if !@client
-         p "GenreTree: DBAccess: Connection failer"
-      end
+      @client = mysql
 
     end
 
