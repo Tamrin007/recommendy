@@ -48,7 +48,7 @@ module GenreTree
     def find_restaurant(genre_name)
       statement = @client.prepare('select restaurant_name from hackathon_restaurant where category_name=? order by rand() limit 1;')
       results = statement.execute(genre_name)
-      
+
       row_size = results.size
       row_index = rand(row_size)
 
@@ -65,7 +65,7 @@ module GenreTree
 
   class Node
     attr_reader :id, :name, :child_ids
-    
+
     def initialize(id, name, child_ids)
       @id = id
       @name = name
@@ -207,7 +207,7 @@ module GenreTree
 
   def get_distinct_rand(max, other)
     candidate = rand(max)
-    
+
     if candidate == other
       return get_distinct_rand(max, other)
     end
